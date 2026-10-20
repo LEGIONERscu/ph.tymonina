@@ -1,10 +1,13 @@
 ---
 import ContactLinks from './ContactLinks.astro';
+
+const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container">
-    <p>Фотографиня Ірина Тимоніна</p>
+  <div class="container footer-row">
+    <span class="footer-copy">© {year} Ірина Тимоніна</span>
     <ContactLinks />
+    <a href="#top" class="footer-top">наверх ↑</a>
   </div>
 </footer>

@@ -31,7 +31,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={new URL(ogImage, Astro.site)} />
   </head>
-  <body>
+  <body id="top">
     <Header overlay={transparentHeader} />
     <main>
       <slot />
