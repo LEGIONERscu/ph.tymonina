@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wedding-full",
+    "title": "Весілля — повний день",
+    "price": 15000,
+    "currency": "UAH",
+    "priceFrom": true,
+    "duration": "до 10 годин",
+    "includes": ["300+ фото в обробці", "онлайн-галерея", "термін 4 тижні"],
+    "category": "vesillia"
+  },
+  {
+    "id": "wedding-short",
+    "title": "Весілля — короткий день",
+    "price": 8000,
+    "currency": "UAH",
+    "priceFrom": true,
+    "duration": "до 5 годин",
+    "includes": ["150+ фото в обробці", "онлайн-галерея", "термін 3 тижні"],
+    "category": "vesillia"
+  },
+  {
+    "id": "baptism",
+    "title": "Хрестини",
+    "price": 3500,
+    "currency": "UAH",
+    "priceFrom": true,
+    "duration": "до 3 годин",
+    "includes": ["100+ фото в обробці", "онлайн-галерея", "термін 2 тижні"],
+    "category": "khrestyny"
+  }
+]

@@ -1,0 +1,56 @@
+---
+const links = [
+  { href: '/', label: 'Головна' },
+  { href: '/portfolio', label: 'Портфоліо' },
+  { href: '/prices', label: 'Прайс' },
+];
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <nav class="nav" aria-label="Основна навігація">
+    <a href="/" class="nav__brand">Ірина Тимоніна</a>
+    <button
+      type="button"
+      class="menu-button"
+      data-testid="menu-button"
+      aria-expanded="false"
+      aria-controls="nav-links"
+      aria-label="Відкрити меню"
+    >
+      ☰
+    </button>
+    <ul class="nav__links" id="nav-links" data-testid="nav-links">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} aria-current={current === link.href ? 'page' : undefined}>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-testid="menu-button"]');
+  const nav = document.querySelector<HTMLElement>('[data-testid="nav-links"]');
+
+  if (button && nav) {
+    button.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('nav-open');
+      button.setAttribute('aria-expanded', String(isOpen));
+      button.setAttribute('aria-label', isOpen ? 'Закрити меню' : 'Відкрити меню');
+      button.textContent = isOpen ? '✕' : '☰';
+    });
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('nav-open');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'Відкрити меню');
+        button.textContent = '☰';
+      });
+    });
+  }
+</script>

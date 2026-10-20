@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PriceCard from '../components/PriceCard.astro';
+import prices from '../content/prices.json';
+---
+
+<BaseLayout
+  title="Прайс — Ірина Тимоніна"
+  description="Вартість фотозйомок: весілля, хрестини та інші пакети послуг."
+>
+  <section class="section">
+    <div class="section-heading centered">
+      <p class="eyebrow">інвестиція в спогади</p>
+      <h2>Прайс</h2>
+      <p class="heading-note">Орієнтовні ціни. Фінальну вартість обговорюємо особисто.</p>
+    </div>
+    <div class="price-grid">
+      {prices.map((plan) => (
+        <PriceCard
+          title={plan.title}
+          price={plan.price}
+          currency={plan.currency}
+          priceFrom={plan.priceFrom}
+          duration={plan.duration}
+          includes={plan.includes}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

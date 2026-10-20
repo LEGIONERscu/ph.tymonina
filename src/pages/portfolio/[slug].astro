@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import { getCategoryPhotos } from '../../lib/photos';
+
+export async function getStaticPaths() {
+  const galleries = await getCollection('galleries');
+  return galleries.map((gallery) => ({
+    params: { slug: gallery.data.slug },
+    props: { gallery },
+  }));
+}
+
+const { gallery } = Astro.props;
+const photos = getCategoryPhotos(gallery.data.slug, gallery.data.title, gallery.data.photos);
+---
+
+<BaseLayout
+  title={`${gallery.data.title} — Ірина Тимоніна`}
+  description={gallery.data.description}
+>
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">портфоліо</p>
+      <h2>{gallery.data.title}</h2>
+    </div>
+    {photos.length > 0 ? (
+      <GalleryGrid photos={photos} />
+    ) : (
+      <p>Фото цієї категорії скоро з'являться.</p>
+    )}
+  </section>
+</BaseLayout>

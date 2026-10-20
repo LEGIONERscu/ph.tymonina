@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryCard from '../../components/CategoryCard.astro';
+import { getCoverImage } from '../../lib/photos';
+
+const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Портфоліо — Ірина Тимоніна"
+  description="Усі категорії фотозйомок Ірини Тимоніної: весілля, хрестини та інші родинні історії."
+>
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">портфоліо</p>
+      <h2>Усі<br /><em>категорії</em></h2>
+    </div>
+    <div class="grid">
+      {galleries.map((gallery) => (
+        <CategoryCard
+          href={`/portfolio/${gallery.data.slug}`}
+          title={gallery.data.title}
+          cover={getCoverImage(gallery.data.slug, gallery.data.cover)}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

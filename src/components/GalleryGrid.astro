@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import type { CategoryPhoto } from '../lib/photos';
+
+interface Props {
+  photos: CategoryPhoto[];
+}
+
+const { photos } = Astro.props;
+---
+
+<div class="gallery-grid" data-testid="gallery-grid">
+  {photos.map((photo) => (
+    <a
+      href={photo.image.src}
+      data-testid="gallery-item"
+      data-pswp-width={photo.image.width}
+      data-pswp-height={photo.image.height}
+      target="_blank"
+      rel="noopener"
+    >
+      <Image
+        src={photo.image}
+        alt={photo.alt}
+        widths={[300, 600]}
+        sizes="(max-width: 600px) 50vw, 300px"
+        loading="lazy"
+      />
+    </a>
+  ))}
+</div>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import 'photoswipe/style.css';
+
+  const gallery = document.querySelector<HTMLElement>('[data-testid="gallery-grid"]');
+
+  if (gallery) {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery,
+      children: 'a[data-testid="gallery-item"]',
+      pswpModule: () => import('photoswipe'),
+      bgOpacity: 0.95,
+    });
+    lightbox.init();
+
+    // Хук для e2e-тестів: доступ до поточного індексу слайда (__pswp.pswp.currIndex)
+    // і прапорець готовності — клавіатура/свайп працюють лише після відкриття (анімація).
+    const testHook = window as unknown as { __pswp: typeof lightbox; __pswpReady: boolean };
+    testHook.__pswp = lightbox;
+    testHook.__pswpReady = false;
+    lightbox.on('bindEvents', () => {
+      testHook.__pswpReady = true;
+    });
+    lightbox.on('destroy', () => {
+      testHook.__pswpReady = false;
+    });
+
+    // PhotoSwipe не проставляє роль діалогу сама — додаємо для доступності й тестів.
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLElement && node.classList.contains('pswp')) {
+            node.setAttribute('role', 'dialog');
+            node.setAttribute('aria-modal', 'true');
+            node.setAttribute('aria-label', 'Перегляд фотографії');
+          }
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true });
+  }
+</script>

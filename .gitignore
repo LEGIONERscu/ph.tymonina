@@ -1,0 +1,8 @@
+node_modules/
+.npm-cache/
+sajt-dlya-fotografa.zip
+dist/
+.astro/
+playwright-report/
+test-results/
+.DS_Store

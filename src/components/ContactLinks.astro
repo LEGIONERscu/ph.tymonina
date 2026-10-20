@@ -1,0 +1,18 @@
+---
+// УВАГА: це тимчасові (placeholder) контакти.
+// Заміни на реальні контакти Ірини перед публікацією (відкрите питання CLAUDE.md, розділ 10, п.7).
+const contacts = [
+  { label: 'Telegram', href: 'https://t.me/iryna_tymonina_photo' },
+  { label: 'Viber', href: 'viber://chat?number=%2B380000000000' },
+  { label: 'Instagram', href: 'https://instagram.com/iryna.tymonina.photo' },
+  { label: 'Телефон', href: 'tel:+380000000000' },
+];
+---
+
+<ul class="contact-links" data-testid="contact-links">
+  {contacts.map((c) => (
+    <li>
+      <a href={c.href} rel="noopener noreferrer">{c.label}</a>
+    </li>
+  ))}
+</ul>

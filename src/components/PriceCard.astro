@@ -1,0 +1,25 @@
+---
+import { formatPrice } from '../lib/format';
+
+interface Props {
+  title: string;
+  price: number;
+  currency: string;
+  priceFrom?: boolean;
+  duration: string;
+  includes: string[];
+}
+
+const { title, price, currency, priceFrom, duration, includes } = Astro.props;
+---
+
+<article class="price-card" data-testid="price-card">
+  <div>
+    <p class="price-card__detail">{duration}</p>
+    <h3>{title}</h3>
+    <p class="price-card__price">{formatPrice({ price, currency, priceFrom })}</p>
+  </div>
+  <ul>
+    {includes.map((item) => <li>{item}</li>)}
+  </ul>
+</article>
