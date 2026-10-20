@@ -11,9 +11,10 @@ const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order
 const [firstGallery] = galleries;
 const aboutPhoto = getPhotoByPath(site.aboutPhoto);
 
-const heroPhoto = firstGallery
-  ? getCategoryPhotos(firstGallery.data.slug, firstGallery.data.title, firstGallery.data.photos)[0]
-  : undefined;
+const heroGalleryPhotos = firstGallery
+  ? getCategoryPhotos(firstGallery.data.slug, firstGallery.data.title, firstGallery.data.photos)
+  : [];
+const heroPhoto = heroGalleryPhotos[0];
 
 // Добірка фото з різних категорій для мозаїки на головній (не лайтбокс — лише посилання на категорію).
 // Перше фото першої категорії вже використане в hero, тому тут його пропускаємо.
@@ -28,6 +29,7 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
 <BaseLayout
   title="Ірина Тимоніна — фотографиня"
   description="Весільна та сімейна фотозйомка. Живі, теплі фотографії про людей і головні моменти їхнього життя."
+  transparentHeader
 >
   <section class="hero">
     <div class="hero-copy">
@@ -39,8 +41,8 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
     {heroPhoto && (
       <div class="hero-image-wrap">
         <Image src={heroPhoto.image} alt={heroPhoto.alt} widths={[600, 1200]} sizes="(max-width: 1023px) 100vw, 57vw" />
-        <span class="hero-number">{firstGallery?.data.title}</span>
-        <span class="hero-caption">портфоліо</span>
+        <span class="hero-number">01 / {String(heroGalleryPhotos.length).padStart(2, '0')}</span>
+        <span class="hero-caption">{firstGallery?.data.title}</span>
       </div>
     )}
   </section>

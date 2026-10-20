@@ -71,6 +71,16 @@ h2 em {
   border-bottom: 1px solid var(--line);
 }
 
+.site-header--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  border-bottom: 0;
+  color: white;
+}
+
 .nav {
   position: relative;
   display: flex;
@@ -81,7 +91,17 @@ h2 em {
 }
 
 .nav__brand {
-  font: 500 1.3rem var(--font-main);
+  font: 500 1.1rem/1.1 var(--font-main);
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__brand span {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-top: 0.3rem;
+  opacity: 0.75;
 }
 
 .menu-button {
@@ -111,6 +131,7 @@ h2 em {
 
 .nav__links.nav-open {
   display: flex;
+  color: var(--ink);
 }
 
 .nav__links li {
@@ -156,7 +177,7 @@ h2 em {
 .hero {
   background: var(--sage);
   color: white;
-  padding: 3.5rem 6vw;
+  padding: 6rem 6vw 3.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -406,8 +427,13 @@ h2 em {
 }
 
 .contact-section .contact-links a {
-  font-size: 0.95rem;
-  border-bottom-color: rgba(255, 255, 255, 0.6);
+  width: 3rem;
+  height: 3rem;
+}
+
+.contact-section .contact-links svg {
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 /* Gallery grid (всередині категорії) */
@@ -524,9 +550,21 @@ h2 em {
 
 .contact-links a {
   display: inline-flex;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding-bottom: 0.3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.contact-links a:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  opacity: 0.85;
+}
+
+.contact-links svg {
+  width: 1.1rem;
+  height: 1.1rem;
 }
