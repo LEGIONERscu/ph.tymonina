@@ -1,6 +1,4 @@
 # Адмінка Decap CMS — веб-форма для завантаження фото без Git.
-# ВАЖЛИВО: онови site_domain і base_url на реальну адресу сайту
-# одразу після підключення Cloudflare Pages (зараз тут заглушка).
 backend:
   name: github
   repo: LEGIONERscu/ph.tymonina
