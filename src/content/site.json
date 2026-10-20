@@ -1,5 +1,8 @@
 {
   "aboutPhoto": "/src/assets/photos/about/portrait.jpg",
+  "heroPhoto": "/src/assets/photos/vesillia/01.jpg",
+  "heroPhotoAlt": "Весільна фотозйомка — головне фото на сайті",
+  "heroCaption": "Весілля",
   "contacts": {
     "telegram": "https://t.me/tymoninaph",
     "viber": "viber://chat?number=%2B380978468915",

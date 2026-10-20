@@ -221,6 +221,16 @@ h2 em {
   overflow: hidden;
 }
 
+/* Темний скрим зверху — щоб білий текст хедера читався поверх фото */
+.hero-image-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 30%);
+}
+
 .hero-image-wrap img {
   width: 100%;
   height: 280px;
@@ -264,16 +274,6 @@ h2 em {
   .hero-image-wrap img {
     height: 100%;
     object-fit: cover;
-  }
-
-  /* Плавний перехід фото в темний фон зліва — без різкої вертикальної межі */
-  .hero-image-wrap::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(to right, var(--sage), transparent 22%);
   }
 }
 

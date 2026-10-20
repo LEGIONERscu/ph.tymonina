@@ -7,20 +7,16 @@ import { getCategoryPhotos, getCoverImage, getPhotoByPath } from '../lib/photos'
 import site from '../content/site.json';
 
 const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order - b.data.order);
-const [firstGallery] = galleries;
 const aboutPhoto = getPhotoByPath(site.aboutPhoto);
-
-const heroGalleryPhotos = firstGallery
-  ? getCategoryPhotos(firstGallery.data.slug, firstGallery.data.title, firstGallery.data.photos)
-  : [];
-const heroPhoto = heroGalleryPhotos[0];
+const heroPhoto = getPhotoByPath(site.heroPhoto);
 
 // Добірка фото з різних категорій для мозаїки на головній (не лайтбокс — лише посилання на категорію).
-// Перше фото першої категорії вже використане в hero, тому тут його пропускаємо.
+// Фото, яке вже показане в hero, тут пропускаємо, щоб не дублювати.
 const showcasePhotos = galleries.flatMap((gallery) => {
-  const photos = getCategoryPhotos(gallery.data.slug, gallery.data.title, gallery.data.photos);
-  const skip = gallery === firstGallery ? 1 : 0;
-  return photos.slice(skip, skip + 3).map((photo) => ({ photo, slug: gallery.data.slug }));
+  const photos = getCategoryPhotos(gallery.data.slug, gallery.data.title, gallery.data.photos).filter(
+    (photo) => photo.image.src !== heroPhoto?.src
+  );
+  return photos.slice(0, 3).map((photo) => ({ photo, slug: gallery.data.slug }));
 });
 const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item, index }));
 ---
@@ -39,9 +35,8 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
     </div>
     {heroPhoto && (
       <div class="hero-image-wrap">
-        <Image src={heroPhoto.image} alt={heroPhoto.alt} widths={[600, 1200]} sizes="(max-width: 1023px) 100vw, 57vw" />
-        <span class="hero-number">01 / {String(heroGalleryPhotos.length).padStart(2, '0')}</span>
-        <span class="hero-caption">{firstGallery?.data.title}</span>
+        <Image src={heroPhoto} alt={site.heroPhotoAlt} widths={[600, 1200]} sizes="(max-width: 1023px) 100vw, 57vw" />
+        <span class="hero-caption">{site.heroCaption}</span>
       </div>
     )}
   </section>

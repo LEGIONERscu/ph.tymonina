@@ -126,6 +126,22 @@ collections:
             widget: image
             media_folder: '/src/assets/photos/about'
             public_folder: '/src/assets/photos/about'
+          - label: 'Головне фото (hero, перший екран сайту)'
+            name: heroPhoto
+            widget: image
+            hint: 'Можна обрати будь-яке вже завантажене фото з будь-якої категорії.'
+            media_folder: '/src/assets/photos'
+            public_folder: '/src/assets/photos'
+          - {
+              label: 'Підпис (alt) для головного фото — опис українською для доступності',
+              name: heroPhotoAlt,
+              widget: string,
+            }
+          - {
+              label: 'Короткий підпис у кутку головного фото (напр. "Весілля")',
+              name: heroCaption,
+              widget: string,
+            }
           - label: 'Контакти'
             name: contacts
             widget: object
