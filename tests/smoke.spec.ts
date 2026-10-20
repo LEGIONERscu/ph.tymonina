@@ -24,6 +24,19 @@ test('неіснуюча сторінка повертає 404', async ({ page }
   expect(response?.status()).toBe(404);
 });
 
+test('/admin/: адмінка Decap CMS відкривається без помилок у консолі', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') errors.push(msg.text());
+  });
+  page.on('pageerror', (err) => errors.push(err.message));
+
+  const response = await page.goto('/admin/');
+  expect(response?.status()).toBe(200);
+  await expect(page.getByRole('button', { name: /login with github/i })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test('мобільне меню: кнопка відкриває і закриває список посилань', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'Кнопка-бургер показана лише на мобільних в’юпортах');
 

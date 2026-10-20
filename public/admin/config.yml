@@ -1,0 +1,53 @@
+# Адмінка Decap CMS — веб-форма для завантаження фото без Git.
+# ВАЖЛИВО: онови site_domain і base_url на реальну адресу сайту
+# одразу після підключення Cloudflare Pages (зараз тут заглушка).
+backend:
+  name: github
+  repo: LEGIONERscu/ph.tymonina
+  branch: main
+  site_domain: https://ph-tymonina.pages.dev
+  base_url: https://ph-tymonina.pages.dev
+  auth_endpoint: /api/auth
+
+media_folder: src/assets/photos
+public_folder: /src/assets/photos
+
+collections:
+  - name: galleries
+    label: 'Категорії портфоліо'
+    label_singular: 'Категорія'
+    folder: src/content/galleries
+    create: true
+    slug: '{{fields.slug}}'
+    identifier_field: slug
+    fields:
+      - { label: 'Назва категорії', name: title, widget: string, hint: 'Наприклад: Весілля' }
+      - {
+          label: 'Slug (латиницею, без пробілів)',
+          name: slug,
+          widget: string,
+          pattern: ['^[a-z0-9-]+$', 'лише малі латинські літери, цифри й дефіс'],
+        }
+      - { label: 'Порядок на сторінці', name: order, widget: number, value_type: int }
+      - {
+          label: "Ім'я файлу обкладинки (напр. 01.jpg) — має збігатися з одним із завантажених фото нижче",
+          name: cover,
+          widget: string,
+        }
+      - {
+          label: 'Опис для SEO (до 160 символів)',
+          name: description,
+          widget: string,
+          pattern: ['^.{1,160}$', 'до 160 символів'],
+        }
+      - label: 'Фото категорії'
+        name: photos_upload
+        widget: list
+        label_singular: 'Фото'
+        hint: 'Завантаж фото з телефону чи ПК. Довга сторона ≤ 2500px, без GPS в EXIF.'
+        field:
+          label: 'Фото'
+          name: image
+          widget: image
+          media_folder: '/src/assets/photos/{{slug}}'
+          public_folder: '/src/assets/photos/{{slug}}'
