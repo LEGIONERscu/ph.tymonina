@@ -1,10 +1,27 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CategoryCard from '../components/CategoryCard.astro';
-import { getCoverImage } from '../lib/photos';
+import ContactLinks from '../components/ContactLinks.astro';
+import { getCategoryPhotos, getCoverImage } from '../lib/photos';
+import portrait from '../assets/portrait-placeholder.jpg';
 
 const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order - b.data.order);
+const [firstGallery] = galleries;
+
+const heroPhoto = firstGallery
+  ? getCategoryPhotos(firstGallery.data.slug, firstGallery.data.title, firstGallery.data.photos)[0]
+  : undefined;
+
+// Добірка фото з різних категорій для мозаїки на головній (не лайтбокс — лише посилання на категорію).
+// Перше фото першої категорії вже використане в hero, тому тут його пропускаємо.
+const showcasePhotos = galleries.flatMap((gallery) => {
+  const photos = getCategoryPhotos(gallery.data.slug, gallery.data.title, gallery.data.photos);
+  const skip = gallery === firstGallery ? 1 : 0;
+  return photos.slice(skip, skip + 3).map((photo) => ({ photo, slug: gallery.data.slug }));
+});
+const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item, index }));
 ---
 
 <BaseLayout
@@ -21,12 +38,39 @@ const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order
       </p>
       <a class="cta" href="#contacts">записатися на зйомку</a>
     </div>
+    {heroPhoto && (
+      <div class="hero-image-wrap">
+        <Image src={heroPhoto.image} alt={heroPhoto.alt} widths={[600, 1200]} sizes="(max-width: 1023px) 100vw, 57vw" />
+        <span class="hero-number">{firstGallery?.data.title}</span>
+        <span class="hero-caption">портфоліо</span>
+      </div>
+    )}
   </section>
+
+  {showcaseItems.length > 0 && (
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">вибране</p>
+        <h2>Історії, які<br /><em>залишаються</em></h2>
+      </div>
+      <div class="showcase-grid">
+        {showcaseItems.map(({ photo, slug, index }) => (
+          <a
+            href={`/portfolio/${slug}`}
+            class={`showcase-item ${index === 0 ? 'showcase-tall' : ''}`}
+          >
+            <Image src={photo.image} alt={photo.alt} widths={[400, 800]} sizes="(max-width: 768px) 50vw, 33vw" />
+          </a>
+        ))}
+      </div>
+      <a class="text-link" href="/portfolio">усе портфоліо</a>
+    </section>
+  )}
 
   <section class="section">
     <div class="section-heading">
-      <p class="eyebrow">портфоліо</p>
-      <h2>Категорії<br /><em>зйомок</em></h2>
+      <p class="eyebrow">категорії</p>
+      <h2>Оберіть<br /><em>зйомку</em></h2>
     </div>
     <div class="grid">
       {galleries.map((gallery) => (
@@ -37,6 +81,26 @@ const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order
         />
       ))}
     </div>
-    <a class="text-link" href="/portfolio">усе портфоліо</a>
+  </section>
+
+  <section class="section about">
+    <div class="about-image">
+      <Image src={portrait} alt="Ірина Тимоніна за роботою" width={900} height={1125} />
+    </div>
+    <div class="about-copy">
+      <p class="eyebrow">трохи про мене</p>
+      <h2>Привіт, я<br /><em>Ірина</em></h2>
+      <p>
+        Фотографую людей такими, якими вони є — справжніми, закоханими, трохи схвильованими. Люблю
+        м'яке світло, випадкові обійми й моменти, які не планувалися.
+      </p>
+      <p>Моя суперсила — зробити так, щоб ви забули про камеру і просто були разом.</p>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contacts">
+    <p class="eyebrow">давайте створимо щось красиве</p>
+    <h2>Ваша історія<br /><em>починається тут</em></h2>
+    <ContactLinks />
   </section>
 </BaseLayout>

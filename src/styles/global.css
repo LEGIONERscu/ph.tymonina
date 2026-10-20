@@ -195,6 +195,34 @@ h2 em {
   width: fit-content;
 }
 
+.hero-image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-wrap img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.hero-number,
+.hero-caption {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero-number {
+  left: 1rem;
+}
+
+.hero-caption {
+  right: 1rem;
+}
+
 @media (min-width: 1024px) {
   .hero {
     flex-direction: row;
@@ -277,6 +305,109 @@ h2 em {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
   font-size: 1.15rem;
   font-weight: 600;
+}
+
+/* Showcase masonry (добірка фото на головній, посилання на категорії) */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.showcase-item {
+  position: relative;
+  overflow: hidden;
+  background: #ddd;
+  aspect-ratio: 1 / 1;
+}
+
+.showcase-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.showcase-item:hover img {
+  transform: scale(1.04);
+}
+
+.showcase-item span {
+  position: absolute;
+  bottom: 0.7rem;
+  right: 0.8rem;
+  color: white;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 768px) {
+  .showcase-grid {
+    grid-template-columns: 1fr 1.28fr 1fr;
+    grid-template-rows: 220px 300px;
+    gap: 1.2rem;
+  }
+
+  .showcase-item {
+    aspect-ratio: auto;
+  }
+
+  .showcase-tall {
+    grid-row: span 2;
+  }
+}
+
+/* Про фотографа */
+.about {
+  background: var(--cream);
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about-image img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+.about-copy p:not(.eyebrow) {
+  font: 400 1rem/1.55 var(--font-main);
+  color: #444444;
+  margin: 1rem 0;
+}
+
+@media (min-width: 768px) {
+  .about {
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+  }
+
+  .about-image img {
+    height: 480px;
+  }
+}
+
+/* Велика контактна секція */
+.contact-section {
+  background: var(--ink);
+  color: white;
+  text-align: center;
+  padding: 4.5rem 6vw;
+}
+
+.contact-section .eyebrow {
+  opacity: 0.7;
+}
+
+.contact-section .contact-links {
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.contact-section .contact-links a {
+  font-size: 0.95rem;
+  border-bottom-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Gallery grid (всередині категорії) */

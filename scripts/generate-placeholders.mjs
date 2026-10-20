@@ -25,6 +25,17 @@ const ogSvg = Buffer.from(`
 await sharp(ogSvg).jpeg({ quality: 80 }).toFile('public/og-image.jpg');
 console.log('створено public/og-image.jpg');
 
+// Заглушка-портрет для блоку "про мене" на головній — заміни на реальне фото Ірини.
+const portraitSvg = Buffer.from(`
+  <svg width="900" height="1125" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" fill="#8a8a8a" />
+    <text x="50%" y="50%" font-size="42" font-family="sans-serif" fill="white"
+      text-anchor="middle" dominant-baseline="middle">Ірина Тимоніна</text>
+  </svg>
+`);
+await sharp(portraitSvg).jpeg({ quality: 80 }).toFile('src/assets/portrait-placeholder.jpg');
+console.log('створено src/assets/portrait-placeholder.jpg');
+
 for (const category of categories) {
   const dir = path.join('src/assets/photos', category.slug);
   await mkdir(dir, { recursive: true });
