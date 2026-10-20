@@ -1,11 +1,12 @@
 ---
-// УВАГА: це тимчасові (placeholder) контакти.
-// Заміни на реальні контакти Ірини перед публікацією (відкрите питання CLAUDE.md, розділ 10, п.7).
+// Контакти редагуються через адмінку (/admin → "Загальні налаштування") — src/content/site.json.
+import site from '../content/site.json';
+
 const contacts = [
-  { label: 'Telegram', href: 'https://t.me/iryna_tymonina_photo' },
-  { label: 'Viber', href: 'viber://chat?number=%2B380000000000' },
-  { label: 'Instagram', href: 'https://instagram.com/iryna.tymonina.photo' },
-  { label: 'Телефон', href: 'tel:+380000000000' },
+  { label: 'Telegram', href: site.contacts.telegram },
+  { label: 'Viber', href: site.contacts.viber },
+  { label: 'Instagram', href: site.contacts.instagram },
+  { label: 'Телефон', href: site.contacts.phone },
 ];
 ---
 

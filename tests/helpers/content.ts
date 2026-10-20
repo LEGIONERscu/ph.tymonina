@@ -58,4 +58,4 @@ export const galleries: Gallery[] = readdirSync(GALLERIES_DIR)
   })
   .sort((a, b) => a.order - b.order);
 
-export const prices: PricePlan[] = JSON.parse(readFileSync(PRICES_FILE, 'utf-8'));
+export const prices: PricePlan[] = JSON.parse(readFileSync(PRICES_FILE, 'utf-8')).packages;

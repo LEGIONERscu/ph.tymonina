@@ -1,4 +1,4 @@
-# Адмінка Decap CMS — веб-форма для завантаження фото без Git.
+# Адмінка Decap CMS — веб-форма для керування сайтом без Git.
 backend:
   name: github
   repo: LEGIONERscu/ph.tymonina
@@ -38,10 +38,11 @@ collections:
           widget: string,
           pattern: ['^.{1,160}$', 'до 160 символів'],
         }
-      - label: 'Фото категорії'
+      - label: 'Завантажити нові фото'
         name: photos_upload
         widget: list
         label_singular: 'Фото'
+        required: false
         hint: 'Завантаж фото з телефону чи ПК. Довга сторона ≤ 2500px, без GPS в EXIF.'
         field:
           label: 'Фото'
@@ -49,16 +50,129 @@ collections:
           widget: image
           media_folder: '/src/assets/photos/{{slug}}'
           public_folder: '/src/assets/photos/{{slug}}'
+      - label: 'Порядок і підписи фото'
+        name: photos
+        widget: list
+        label_singular: 'Фото'
+        required: false
+        summary: '{{fields.alt}}'
+        hint: 'Необов’язково. Якщо не заповнено — фото йдуть за алфавітом імені файлу з автопідписом. Тут можна вибрати порядок (перетягуванням) і написати власний підпис (alt) для вже завантажених фото.'
+        fields:
+          - label: 'Файл (обери серед уже завантажених)'
+            name: file
+            widget: image
+            choose_url: false
+            media_folder: '/src/assets/photos/{{slug}}'
+            public_folder: '/src/assets/photos/{{slug}}'
+          - label: 'Підпис (alt — для доступності та SEO)'
+            name: alt
+            widget: string
+
+  - name: pricing
+    label: 'Прайс'
+    files:
+      - name: prices
+        label: 'Пакети послуг'
+        file: src/content/prices.json
+        fields:
+          - label: 'Пакети'
+            name: packages
+            widget: list
+            label_singular: 'Пакет'
+            summary: '{{fields.title}} — {{fields.price}} грн'
+            fields:
+              - { label: 'ID (унікальний, латиницею, без пробілів)', name: id, widget: string }
+              - { label: 'Назва пакета', name: title, widget: string }
+              - { label: 'Ціна (лише число)', name: price, widget: number, value_type: int }
+              - { label: 'Валюта', name: currency, widget: select, options: ['UAH'], default: 'UAH' }
+              - {
+                  label: 'Писати "від" перед ціною?',
+                  name: priceFrom,
+                  widget: boolean,
+                  default: false,
+                }
+              - {
+                  label: 'Підпис над ціною (тривалість/умови)',
+                  name: duration,
+                  widget: string,
+                  hint: 'Наприклад: "2 години" або "за 1 годину зйомки"',
+                }
+              - label: 'Що входить (кожен пункт — окремий рядок)'
+                name: includes
+                widget: list
+              - {
+                  label: 'Примітка (дрібний текст під списком, необов’язково)',
+                  name: note,
+                  widget: string,
+                  required: false,
+                }
+              - label: 'Категорія (яке портфоліо показує цей пакет)'
+                name: category
+                widget: relation
+                collection: galleries
+                value_field: slug
+                search_fields: [title, slug]
+                display_fields: [title]
 
   - name: site
     label: 'Загальні налаштування'
     files:
       - name: settings
-        label: 'Фото "про мене"'
+        label: 'Головна сторінка: фото, hero, про мене, контакти'
         file: src/content/site.json
         fields:
-          - label: 'Фото на блоці "про мене" (головна сторінка)'
+          - label: 'Фото на блоці "про мене"'
             name: aboutPhoto
             widget: image
             media_folder: '/src/assets/photos/about'
             public_folder: '/src/assets/photos/about'
+          - label: 'Контакти'
+            name: contacts
+            widget: object
+            fields:
+              - {
+                  label: 'Telegram (формат https://t.me/...)',
+                  name: telegram,
+                  widget: string,
+                  pattern: ['^https://t\.me/.+', 'має починатися з https://t.me/'],
+                }
+              - {
+                  label: 'Viber (формат viber://chat?number=...)',
+                  name: viber,
+                  widget: string,
+                  pattern: ['^viber://.+', 'має починатися з viber://'],
+                }
+              - {
+                  label: 'Instagram (формат https://instagram.com/...)',
+                  name: instagram,
+                  widget: string,
+                  pattern: ['^https://instagram\.com/.+', 'має починатися з https://instagram.com/'],
+                }
+              - {
+                  label: 'Телефон (формат tel:+380XXXXXXXXX)',
+                  name: phone,
+                  widget: string,
+                  pattern: ['^tel:\+380\d{9}$', 'формат tel:+380 і 9 цифр, без пробілів'],
+                }
+          - label: 'Hero-блок (перший екран головної)'
+            name: hero
+            widget: object
+            fields:
+              - { label: 'Маленький підпис зверху', name: eyebrow, widget: string }
+              - { label: 'Заголовок, рядок 1', name: titleLine1, widget: string }
+              - { label: 'Заголовок, виділене слово (курсивом)', name: titleEmphasis, widget: string }
+              - { label: 'Заголовок, рядок 2', name: titleLine2, widget: string }
+              - { label: 'Опис під заголовком', name: description, widget: text }
+          - label: 'Блок "про мене"'
+            name: about
+            widget: object
+            fields:
+              - { label: 'Маленький підпис зверху', name: eyebrow, widget: string }
+              - {
+                  label: 'Ім’я у заголовку (курсивом): "Привіт, я ..."',
+                  name: titleEmphasis,
+                  widget: string,
+                }
+              - label: 'Текст (кожен абзац — окремий рядок)'
+                name: paragraphs
+                widget: list

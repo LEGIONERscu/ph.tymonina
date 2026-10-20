@@ -31,12 +31,9 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
 >
   <section class="hero">
     <div class="hero-copy">
-      <p class="eyebrow">фотографія з душею</p>
-      <h1>Зберігаю<br /><em>ваші</em> моменти</h1>
-      <p class="hero-description">
-        Весільна та сімейна фотозйомка. Живі фотографії без зайвої пози — про людей, любов і той
-        день, який хочеться прожити знову.
-      </p>
+      <p class="eyebrow">{site.hero.eyebrow}</p>
+      <h1>{site.hero.titleLine1}<br /><em>{site.hero.titleEmphasis}</em> {site.hero.titleLine2}</h1>
+      <p class="hero-description">{site.hero.description}</p>
       <a class="cta" href="#contacts">записатися на зйомку</a>
     </div>
     {heroPhoto && (
@@ -89,13 +86,9 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
       {aboutPhoto && <Image src={aboutPhoto} alt="Ірина Тимоніна за роботою" />}
     </div>
     <div class="about-copy">
-      <p class="eyebrow">трохи про мене</p>
-      <h2>Привіт, я<br /><em>Ірина</em></h2>
-      <p>
-        Фотографую людей такими, якими вони є — справжніми, закоханими, трохи схвильованими. Люблю
-        м'яке світло, випадкові обійми й моменти, які не планувалися.
-      </p>
-      <p>Моя суперсила — зробити так, щоб ви забули про камеру і просто були разом.</p>
+      <p class="eyebrow">{site.about.eyebrow}</p>
+      <h2>Привіт, я<br /><em>{site.about.titleEmphasis}</em></h2>
+      {site.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </section>
 

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PriceCard from '../components/PriceCard.astro';
-import prices from '../content/prices.json';
+import pricesFile from '../content/prices.json';
+
+const prices = pricesFile.packages;
 ---
 
 <BaseLayout
