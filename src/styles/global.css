@@ -230,6 +230,7 @@ h2 em {
 .hero-number,
 .hero-caption {
   position: absolute;
+  z-index: 2;
   bottom: 1rem;
   font-size: 0.6rem;
   letter-spacing: 0.15em;
@@ -263,6 +264,16 @@ h2 em {
   .hero-image-wrap img {
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Плавний перехід фото в темний фон зліва — без різкої вертикальної межі */
+  .hero-image-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to right, var(--sage), transparent 22%);
   }
 }
 
@@ -421,19 +432,14 @@ h2 em {
   opacity: 0.7;
 }
 
-.contact-section .contact-links {
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.contact-section .contact-links a {
-  width: 3rem;
-  height: 3rem;
-}
-
-.contact-section .contact-links svg {
-  width: 1.3rem;
-  height: 1.3rem;
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  padding-bottom: 0.6rem;
+  margin-top: 2.5rem;
 }
 
 /* Gallery grid (всередині категорії) */
