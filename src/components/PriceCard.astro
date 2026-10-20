@@ -8,9 +8,10 @@ interface Props {
   priceFrom?: boolean;
   duration: string;
   includes: string[];
+  note?: string;
 }
 
-const { title, price, currency, priceFrom, duration, includes } = Astro.props;
+const { title, price, currency, priceFrom, duration, includes, note } = Astro.props;
 ---
 
 <article class="price-card" data-testid="price-card">
@@ -22,4 +23,5 @@ const { title, price, currency, priceFrom, duration, includes } = Astro.props;
   <ul>
     {includes.map((item) => <li>{item}</li>)}
   </ul>
+  {note && <p class="price-card__note">{note}</p>}
 </article>

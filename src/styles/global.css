@@ -494,6 +494,13 @@ h2 em {
   opacity: 0.8;
 }
 
+.price-card__note {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  opacity: 0.65;
+  margin: 1rem 0 0;
+}
+
 /* Lightbox (PhotoSwipe перевизначає свої стилі; це лише базовий fallback) */
 [data-testid='gallery-item'] {
   display: block;

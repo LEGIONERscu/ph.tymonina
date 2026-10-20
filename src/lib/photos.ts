@@ -42,3 +42,11 @@ export function getCoverImage(slug: string, cover: string): ImageMetadata | unde
   );
   return entry?.[1].default;
 }
+
+/**
+ * Пошук фото за повним шляхом від кореня проєкту (напр. "/src/assets/photos/about/portrait.jpg") —
+ * саме так Decap CMS записує значення image-поля в site.json.
+ */
+export function getPhotoByPath(path: string): ImageMetadata | undefined {
+  return images[path]?.default;
+}

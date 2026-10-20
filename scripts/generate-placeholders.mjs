@@ -9,6 +9,7 @@ import path from 'node:path';
 const categories = [
   { slug: 'vesillia', label: 'Весілля', color: { r: 196, g: 164, b: 132 }, count: 6 },
   { slug: 'khrestyny', label: 'Хрестини', color: { r: 168, g: 196, b: 180 }, count: 6 },
+  { slug: 'personal-family', label: 'Персональна, сімейна', color: { r: 190, g: 170, b: 180 }, count: 6 },
 ];
 
 const WIDTH = 1600;
@@ -33,8 +34,9 @@ const portraitSvg = Buffer.from(`
       text-anchor="middle" dominant-baseline="middle">Ірина Тимоніна</text>
   </svg>
 `);
-await sharp(portraitSvg).jpeg({ quality: 80 }).toFile('src/assets/portrait-placeholder.jpg');
-console.log('створено src/assets/portrait-placeholder.jpg');
+await mkdir('src/assets/photos/about', { recursive: true });
+await sharp(portraitSvg).jpeg({ quality: 80 }).toFile('src/assets/photos/about/portrait.jpg');
+console.log('створено src/assets/photos/about/portrait.jpg');
 
 for (const category of categories) {
   const dir = path.join('src/assets/photos', category.slug);

@@ -4,11 +4,12 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CategoryCard from '../components/CategoryCard.astro';
 import ContactLinks from '../components/ContactLinks.astro';
-import { getCategoryPhotos, getCoverImage } from '../lib/photos';
-import portrait from '../assets/portrait-placeholder.jpg';
+import { getCategoryPhotos, getCoverImage, getPhotoByPath } from '../lib/photos';
+import site from '../content/site.json';
 
 const galleries = (await getCollection('galleries')).sort((a, b) => a.data.order - b.data.order);
 const [firstGallery] = galleries;
+const aboutPhoto = getPhotoByPath(site.aboutPhoto);
 
 const heroPhoto = firstGallery
   ? getCategoryPhotos(firstGallery.data.slug, firstGallery.data.title, firstGallery.data.photos)[0]
@@ -85,7 +86,7 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
 
   <section class="section about">
     <div class="about-image">
-      <Image src={portrait} alt="Ірина Тимоніна за роботою" width={900} height={1125} />
+      {aboutPhoto && <Image src={aboutPhoto} alt="Ірина Тимоніна за роботою" />}
     </div>
     <div class="about-copy">
       <p class="eyebrow">трохи про мене</p>

@@ -25,6 +25,7 @@ export interface PricePlan {
   priceFrom?: boolean;
   duration: string;
   includes: string[];
+  note?: string;
   category: string;
 }
 
