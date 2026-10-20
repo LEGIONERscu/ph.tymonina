@@ -62,14 +62,13 @@
     "category": "vesillia"
   },
   {
-    "id": "baptism",
-    "title": "Хрестини",
-    "price": 3500,
+    "id": "events",
+    "title": "Художньо-репортажна зйомка подій",
+    "price": 2200,
     "currency": "UAH",
-    "priceFrom": true,
-    "duration": "до 3 годин",
-    "includes": ["100+ фото в обробці", "онлайн-галерея", "термін 2 тижні"],
-    "note": "Орієнтовна ціна-заглушка — ще не підтверджена Іриною.",
-    "category": "khrestyny"
+    "priceFrom": false,
+    "duration": "за 1 годину зйомки",
+    "includes": ["День народження", "Хрещення", "Майстер-класи", "Корпоративи та ін."],
+    "category": "events"
   }
 ]

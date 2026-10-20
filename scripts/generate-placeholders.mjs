@@ -8,8 +8,8 @@ import path from 'node:path';
 
 const categories = [
   { slug: 'vesillia', label: 'Весілля', color: { r: 196, g: 164, b: 132 }, count: 6 },
-  { slug: 'khrestyny', label: 'Хрестини', color: { r: 168, g: 196, b: 180 }, count: 6 },
   { slug: 'personal-family', label: 'Персональна, сімейна', color: { r: 190, g: 170, b: 180 }, count: 6 },
+  { slug: 'events', label: 'Події', color: { r: 168, g: 196, b: 180 }, count: 6 },
 ];
 
 const WIDTH = 1600;
