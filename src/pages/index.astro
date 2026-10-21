@@ -29,7 +29,7 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
   <section class="hero">
     <div class="hero-copy">
       <p class="eyebrow">{site.hero.eyebrow}</p>
-      <h1>{site.hero.titleLine1}<br /><em>{site.hero.titleEmphasis}</em> {site.hero.titleLine2}</h1>
+      <h1>{site.hero.titleLine1} <em>{site.hero.titleEmphasis}</em> {site.hero.titleLine2}</h1>
       <p class="hero-description">{site.hero.description}</p>
       <a class="cta" href="#contacts">записатися на зйомку</a>
     </div>
@@ -45,7 +45,7 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
     <section class="section">
       <div class="section-heading">
         <p class="eyebrow">вибране</p>
-        <h2>Історії, які<br /><em>залишаються</em></h2>
+        <h2>Історії, які <em>залишаються</em></h2>
       </div>
       <div class="showcase-grid">
         {showcaseItems.map(({ photo, slug, index }) => (
@@ -64,7 +64,7 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
   <section class="section">
     <div class="section-heading">
       <p class="eyebrow">категорії</p>
-      <h2>Оберіть<br /><em>зйомку</em></h2>
+      <h2>Оберіть <em>зйомку</em></h2>
     </div>
     <div class="grid">
       {galleries.map((gallery) => (
@@ -83,14 +83,14 @@ const showcaseItems = showcasePhotos.slice(0, 5).map((item, index) => ({ ...item
     </div>
     <div class="about-copy">
       <p class="eyebrow">{site.about.eyebrow}</p>
-      <h2>Привіт, я<br /><em>{site.about.titleEmphasis}</em></h2>
+      <h2>Привіт, я <em>{site.about.titleEmphasis}</em></h2>
       {site.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </section>
 
   <section class="contact-section" id="contacts">
     <p class="eyebrow">давайте створимо щось красиве</p>
-    <h2>Ваша історія<br /><em>починається тут</em></h2>
+    <h2>Ваша історія <em>починається тут</em></h2>
     <a class="contact-cta" href={site.contacts.telegram} rel="noopener noreferrer">
       написати в Telegram
     </a>
